@@ -1,0 +1,48 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <script>
+        const basicWords1 = "eu, minä | tu, sinä | ele, hän | ela, hän | isto, se | nós, me | vós, te | eles, he | O quê, mikä | Quem, kuka | Onde, missä | Porquê, miksi | Como, miten | Qual, mikä | Quando, milloin | então, sitten | se, jos | mesmo, todella | mas, mutta | porque, koska | não, ei | isto, tämä | aquilo, tuo | tudo, kaikki | ou, tai | e, ja | aqui, täällä | ali, tuolla | esquerda, vasen | direita, oikea | agora, nyt | tarde, iltapäivä | manhã, aamu | noite, yö | manhã, aamu | tardinha, ilta | meio-dia, keskipäivä | meia-noite, keskiyö | hora, tunti | minuto, minuutti | segundo, sekunti | dia, päivä | semana, viikko | mês, kuukausi | ano, vuosi | ontem, eilen | hoje, tänään | amanhã, huomenna | segunda-feira, maanantai | terça-feira, tiistai | quarta-feira, keskiviikko | quinta-feira, torstai | sexta-feira, perjantai | sábado, lauantai | domingo, sunnuntai | mulher, nainen | homem, mies | amor, rakkaus | namorado, poikaystävä | namorada, tyttöystävä | amigo, ystävä | beijo, suudelma | sexo, seksi | criança, lapsi | rapariga, tyttö | rapaz, poika | mamã, äiti | papá, isä | mãe, äiti | pai, isä | pais, vanhemmat | filho, poika | filha, tytär | irmã mais nova, pikkusisko | irmão mais novo, pikkuveli | irmã mais velha, isosisko | irmão mais velho, isoveli | marido, aviomies | esposa, vaimo | todas, jokainen | sempre, aina | na verdade, itse asiassa | outra vez, taas | já, jo | menos, vähemmän | máximo, useimmat | mais, enemmän | nada, ei yhtään | muito, erittäin | fora, ulkona | dentro, sisällä | longe, kaukana | perto, lähellä | abaixo, alla | acima, yllä | ao lado, vieressä | frente, edessä | atrás, takana | toda a gente, kaikki | juntos, yhdessä | outro, toinen | primavera, kevät | verão, kesä | outono, syksy | inverno, talvi | janeiro, tammikuu | fevereiro, helmikuu | março, maaliskuu | abril, huhtikuu | maio, toukokuu | junho, kesäkuu | julho, heinäkuu | agosto, elokuu | setembro, syyskuu | outubro, lokakuu | novembro, marraskuu | dezembro, joulukuu | norte, pohjoinen | este, itä | sul, etelä | oeste, länsi | frequentemente, usein | imediatamente, heti | subitamente, yhtäkkiä | no entanto, vaikka"    </script>
+    </head>
+    <body>
+        <button id="swap">finnish->portuguese</button>
+        <h1>brazilian portuguese -> finnish</h1>
+        <script>
+            let d = document.createElement('div')
+            document.querySelector("#swap").addEventListener('click',(e)=>{console.log(e); e.target.innerText = e.target.innerText.split('->')[1]+'->'+e.target.innerText.split('->')[0]; 
+            if(document.querySelector(".card-container").style.visibility=='hidden'){
+                    document.querySelector(".card-container-swap").style.visibility='hidden';
+                    document.querySelector(".card-container").style.visibility='visible';
+                }else{
+                    document.querySelector(".card-container").style.visibility='hidden'; 
+                    document.querySelector(".card-container-swap").style.visibility='visible';
+                }
+            })
+            console.log(document.querySelector("#swap"))
+            d.classList.add('card-container')
+            d.style.position='absolute'
+            d.style.visibility='visible';
+
+            document.body.appendChild(d);
+            for(let l = basicWords1.split('|').length; l>0; l--){
+                let p = document.createElement('p')
+                p.classList.add('card');
+                d.appendChild(p)
+            }
+            document.querySelectorAll('.card').forEach((c,idx)=> c.innerText = basicWords1.split('|')[idx].split(',').join(' '))
+
+            let d2 = document.createElement('div')
+            d2.classList.add('card-container-swap')
+            d2.style.position='absolute'
+            d2.style.visibility='hidden'
+            document.body.appendChild(d2);
+            
+            for(let l = basicWords1.split('|').length; l>0; l--){
+            let p = document.createElement('p')
+            p.classList.add('card-swap');
+            d2.appendChild(p)
+            d2.querySelectorAll('.card-swap').innerText = basicWords1.split('|')[0].split(',').join(' ')
+        }
+        document.querySelectorAll('.card-swap').forEach((c,idx)=> c.innerText = basicWords1.split('|')[idx].split(',').reverse().join(' '))
+        </script>
+    </body>
