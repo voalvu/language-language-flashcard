@@ -19,7 +19,7 @@
         }
 
         .card-container, .card-container-swap {
-            position: absolute;
+            --position: absolute;
             width: 100%;
             margin: 0 auto;
             align-items: center;
@@ -134,10 +134,49 @@
     </script>
     <script>
         const basicWords1 = "eu, minä | tu, sinä | ele, hän | ela, hän | isto, se | nós, me | vós, te | eles, he | O quê, mikä | Quem, kuka | Onde, missä | Porquê, miksi | Como, miten | Qual, mikä | Quando, milloin | então, sitten | se, jos | mesmo, todella | mas, mutta | porque, koska | não, ei | isto, tämä | aquilo, tuo | tudo, kaikki | ou, tai | e, ja | aqui, täällä | ali, tuolla | esquerda, vasen | direita, oikea | agora, nyt | tarde, iltapäivä | manhã, aamu | noite, yö | manhã, aamu | tardinha, ilta | meio-dia, keskipäivä | meia-noite, keskiyö | hora, tunti | minuto, minuutti | segundo, sekunti | dia, päivä | semana, viikko | mês, kuukausi | ano, vuosi | ontem, eilen | hoje, tänään | amanhã, huomenna | segunda-feira, maanantai | terça-feira, tiistai | quarta-feira, keskiviikko | quinta-feira, torstai | sexta-feira, perjantai | sábado, lauantai | domingo, sunnuntai | mulher, nainen | homem, mies | amor, rakkaus | namorado, poikaystävä | namorada, tyttöystävä | amigo, ystävä | beijo, suudelma | sexo, seksi | criança, lapsi | rapariga, tyttö | rapaz, poika | mamã, äiti | papá, isä | mãe, äiti | pai, isä | pais, vanhemmat | filho, poika | filha, tytär | irmã mais nova, pikkusisko | irmão mais novo, pikkuveli | irmã mais velha, isosisko | irmão mais velho, isoveli | marido, aviomies | esposa, vaimo | todas, jokainen | sempre, aina | na verdade, itse asiassa | outra vez, taas | já, jo | menos, vähemmän | máximo, useimmat | mais, enemmän | nada, ei yhtään | muito, erittäin | fora, ulkona | dentro, sisällä | longe, kaukana | perto, lähellä | abaixo, alla | acima, yllä | ao lado, vieressä | frente, edessä | atrás, takana | toda a gente, kaikki | juntos, yhdessä | outro, toinen | primavera, kevät | verão, kesä | outono, syksy | inverno, talvi | janeiro, tammikuu | fevereiro, helmikuu | março, maaliskuu | abril, huhtikuu | maio, toukokuu | junho, kesäkuu | julho, heinäkuu | agosto, elokuu | setembro, syyskuu | outubro, lokakuu | novembro, marraskuu | dezembro, joulukuu | norte, pohjoinen | este, itä | sul, etelä | oeste, länsi | frequentemente, usein | imediatamente, heti | subitamente, yhtäkkiä | no entanto, vaikka";
-
+        const ownershipPronouns = "meu, minun | tua, sinun | seu, hänen | nosso, meidän | vosso, teidän | seu, heidän";
+        const ollaVerbi = "eu sou, minä olen | tu és, sinä olet | ele/ela é, hän on | nós somos, me olemme | vós sois, te olette | eles/elas são, he ovat";
+        
         let d = document.createElement('div');
+        let dd = document.createElement('div');
+        dd.classList.add('card-cols');
+        dd.style.display='flex'
+        dd.style.flexDirection = 'row'; // Use 'row' instead of 'row-reverse' for proper column alignment
+        dd.style.flexWrap = 'wrap'; // Allow wrapping to create multiple rows if needed
+        dd.style.gap = '10px'; // Add spacing between columns
+        dd.style.flexGrow = 1;
+        
+
         d.classList.add('card-container');
-        document.body.appendChild(d);
+
+        let d3 = document.createElement('div');
+        d3.classList.add('pronouns');
+
+        let d4 = document.createElement('div');
+        d4.classList.add('ollaverbi');
+
+        dd.appendChild(d);
+        dd.appendChild(d3);
+        dd.appendChild(d4);
+
+        document.body.appendChild(dd)
+        Array.from(dd.children).forEach(child => {
+    child.style.flex = '1 1 33.33%'; // Each child takes 1/3 of the parent's width
+    child.style.minWidth = 'calc(33.33% - 10px)'; // Ensure it doesn't shrink below 1/3 (accounting for gap)
+});
+
+        for(let l = ownershipPronouns.split('|').length; l > 0; l--){
+            let p = document.createElement('p');
+            p.classList.add('card-ownership-pronouns');
+            d3.appendChild(p);
+        }
+        document.querySelectorAll('.card-ownership-pronouns').forEach((c,idx) => c.innerText = ownershipPronouns.split('|')[idx].split(',').join(' '));
+
+        for(let l = ollaVerbi.split('|').length; l > 0; l--){
+            let p = document.createElement('p');
+            p.classList.add('card-olla-verbi');
+            d4.appendChild(p);
+        }
 
         for(let l = basicWords1.split('|').length; l > 0; l--){
             let p = document.createElement('p');
@@ -145,11 +184,13 @@
             d.appendChild(p);
         }
         document.querySelectorAll('.card').forEach((c,idx) => c.innerText = basicWords1.split('|')[idx].split(',').join(' '));
+        document.querySelectorAll('.card-ownership-pronouns').forEach((c,idx) => c.innerText = ownershipPronouns.split('|')[idx].split(',').join(' '));
+        document.querySelectorAll('.card-olla-verbi').forEach((c,idx) => c.innerText = ollaVerbi.split('|')[idx].split(',').join(' '));
 
         let d2 = document.createElement('div');
         d2.classList.add('card-container-swap');
         d2.style.visibility = 'hidden';
-        document.body.appendChild(d2);
+        dd.appendChild(d2);
 
         for(let l = basicWords1.split('|').length; l > 0; l--){
             let p = document.createElement('p');
