@@ -3,6 +3,7 @@ const fs = require('fs');
 const url = require('url');
 const querystring = require('querystring');
 const { get } = require('@vercel/edge-config');
+const path = require('path')
 
 const generateToken = (userId, secretKey) => {
     const header = { alg: 'HS256', typ: 'JWT' };
