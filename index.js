@@ -39,7 +39,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     if (pathname === '/' && req.method === 'GET') {
-        fs.readFile('./index.html', (err, data) => {
+        fs.readFile(path.resolve('./index.html'), 'utf8', (err, data) => {
             if (err) {
                 res.writeHead(500, { 'Content-Type': 'text/plain' });
                 res.end(`${err.cause} ${err.stack} ${err.path} ${err.message}`);
