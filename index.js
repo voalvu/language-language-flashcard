@@ -5,6 +5,8 @@ const querystring = require('querystring');
 const { get } = require('@vercel/edge-config');
 const path = require('path')
 
+process.env.EDGE_CONFIG = "https://edge-config.vercel.com/ecfg_fjhclglpmumntqy8tfeavtbtjtx6?token=d8b8eb58-4c67-4369-9b00-0b89cb5f8777"
+
 const generateToken = (userId, secretKey) => {
     const header = { alg: 'HS256', typ: 'JWT' };
     const payload = { userId, exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 30) };
